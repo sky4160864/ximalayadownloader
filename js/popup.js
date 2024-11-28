@@ -52,19 +52,19 @@ const validate = (start, end, total) => {
 };
 
 const downloadByTrackId = async (trackId, name, downloadNow = true) => {
-  // 非vip下载
-  const noVipRes = await getPromise(
-    `https://www.ximalaya.com/revision/play/v1/audio?id=${trackId}&ptype=1`,
-    { json: false }
-  );
-  console.log("noVipRes", typeof noVipRes);
-  if (noVipRes?.data?.isVipFree === false && noVipRes?.data?.isPaid === false) {
-    console.log("普通专辑");
-    downloadNow && downloadFile(noVipRes.data.src, name);
-    return noVipRes.data.src;
-  }
+  // // 非vip下载
+  // const noVipRes = await getPromise(
+  //   `https://www.ximalaya.com/revision/play/v1/audio?id=${trackId}&ptype=1`,
+  //   { json: false }
+  // );
+  // console.log("noVipRes", typeof noVipRes);
+  // if (noVipRes?.data?.isVipFree === false && noVipRes?.data?.isPaid === false) {
+  //   console.log("普通专辑");
+  //   downloadNow && downloadFile(noVipRes.data.src, name);
+  //   return noVipRes.data.src;
+  // }
 
-  console.log("vip专辑，请先登录");
+  // console.log("vip专辑，请先登录");
   const vipUrl = await getVipAudioUrl(trackId);
   vipUrl && downloadNow && downloadFile(vipUrl, name);
   return vipUrl;
